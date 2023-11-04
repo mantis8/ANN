@@ -1,0 +1,2 @@
+add_executable(ActivationsTest src/activations_test.cpp)
+target_link_libraries(ActivationsTest PRIVATE Activations)

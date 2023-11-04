@@ -1,0 +1,3 @@
+[submodule "ref/LinAlg"]
+	path = ref/LinAlg
+	url = https://github.com/manitisch/LinAlg.git
