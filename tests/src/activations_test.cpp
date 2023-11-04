@@ -1,13 +1,11 @@
 import Activations;
 
-#include <iostream>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 
-
-int main() {
+TEST_CASE("simple test") {
     ann::activations::Relu relu{};
     ann::activations::Softmax softmax{};
 
-    std::cout << "Test done" << std::endl;
-
-    return 0;
+    CHECK(true);   
 }
