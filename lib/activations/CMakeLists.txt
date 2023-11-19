@@ -6,4 +6,4 @@ target_sources(${PROJECT_NAME}_Activations
         src/relu.cppm
         src/softmax.cppm
 )
-target_link_libraries(${PROJECT_NAME}_Activations PUBLIC LinAlg_Tensor)
+target_link_libraries(${PROJECT_NAME}_Activations PUBLIC LinAlg_Matrix)
