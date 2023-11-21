@@ -23,13 +23,13 @@ class Relu {
     
     static linalg::Matrix<T, Size, Size> jacobian(const linalg::Matrix<T, Size, 1>& Z) {
         // TODO make use of diagonal matrix
-        linalg::Matrix<T, Size, Size> jacobian{};
+        linalg::Matrix<T, Size, Size> J{};
         
         for (size_t i = 0; i < Size; i++) {
-            jacobian(i, i) = derive(Z(i, 0));
+            J(i, i) = derivative(Z(i, 0));
         }
 
-        return jacobian;
+        return J;
     };
     
   private:
@@ -37,7 +37,7 @@ class Relu {
         return std::max<T>(T{0}, z);
     }; 
 
-    static T derive(const T z) {    
+    static T derivative(const T z) {    
         if (T{0} < z) {
             return T{1};
         }
