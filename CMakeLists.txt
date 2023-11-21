@@ -15,5 +15,7 @@ enable_testing()
 
 # subdirectories
 add_subdirectory(lib/activations)
+add_subdirectory(lib/layers)
+
 add_subdirectory(tests)
 add_subdirectory(ref/LinAlg)
