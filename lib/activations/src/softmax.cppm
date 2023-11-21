@@ -4,8 +4,8 @@ import Matrix;
 
 #include <algorithm>
 #include <cmath>
+#include <numeric>
 #include <type_traits>
-#include <valarray>
 
 export module Activations:Softmax;
 
@@ -16,39 +16,40 @@ requires std::is_floating_point_v<T>
 
 class Softmax {
   public:
-    static linalg::Matrix<T, Size, 1> forward(linalg::Matrix<T, Size, 1> Z) {
+    static linalg::Matrix<T, Size, 1> forward(const linalg::Matrix<T, Size, 1>& Z) {
         linalg::Matrix<T, Size, 1> A{};
         std::transform(Z.cbegin(), Z.cend(), A.begin(), exp);
 
-        //T sum = T{0};
-        //for (const auto& elem : A) {
-        //    sum += elem;
-        //}
-
-        //auto divide = 0
-
-        //std::transform(A.begin(), A.end(), A.begin(), )
-
+        const T sum = std::reduce(A.cbegin(), A.cend());
+        std::for_each(A.begin(), A.end(), [sum](T& z){
+            z = z / sum;
+        });
 
         return A;
     };
     
-    static linalg::Matrix<T, Size, Size> jacobian(linalg::Matrix<T, Size, 1> Z) {
-        // TODO make use of diagonal matrix
-        linalg::Matrix<T, Size, Size> jacobian{};
+    static linalg::Matrix<T, Size, Size> jacobian(const linalg::Matrix<T, Size, 1>& Z) {
+        auto A = forward(Z);
         
+        linalg::Matrix<T, Size, Size> J{};
+        for (size_t i = 0; i < Size; i++) {
+            for (size_t j = i; j < Size; j++) {
+                if (i == j) {
+                    J(i, j) = A(i, 0) * (1 - A(i, 0));
+                } else {
+                    J(i, j) = -1 * (A(i, 0) * A(j, 0));
+                    J(j, i) = J(i, j);
+                }
+            }
+        }
 
-        return jacobian;
+        return J;
     };
     
   private:
     static T exp(const T& z) {
         return std::exp(z);
     };
-
-    static T derive(const T& z) {    
-
-    }; 
 };
 } // namespace ann::activations
     
