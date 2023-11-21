@@ -1,11 +1,11 @@
 module;
 
-import Matrix;
-
 #include <algorithm>
 #include <type_traits>
-	
+
 export module Activations:Relu;
+
+import Matrix;
 
 export namespace ann::activations {
 

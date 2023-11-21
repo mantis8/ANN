@@ -1,13 +1,13 @@
 module;
 
-import Matrix;
-
 #include <algorithm>
 #include <cmath>
 #include <numeric>
 #include <type_traits>
 
 export module Activations:Softmax;
+
+import Matrix;
 
 export namespace ann::activations {
 
