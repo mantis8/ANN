@@ -14,7 +14,7 @@ TEST_CASE("Relu") {
                                       {42.42}};
 
     SUBCASE("Forward pass") {
-        auto A = ann::activations::Relu<float, size>::forward(Z);
+        auto A = ann::activations::Relu::forward(Z);
 
         CHECK(doctest::Approx(0)     == A(0, 0));
         CHECK(doctest::Approx(0)     == A(1, 0));
@@ -22,7 +22,7 @@ TEST_CASE("Relu") {
     }
 
     SUBCASE("Jacobian matrix") {
-        auto J = ann::activations::Relu<float, size>::jacobian(Z);
+        auto J = ann::activations::Relu::jacobian(Z);
         
         CHECK(doctest::Approx(0) == J(0, 0));
         CHECK(doctest::Approx(0) == J(0, 1));
@@ -36,6 +36,7 @@ TEST_CASE("Relu") {
     }
 }
 
+
 TEST_CASE("Softmax") {
     constexpr size_t size = 3;
     linalg::Matrix<double, size, 1> Z{{1},
@@ -43,7 +44,7 @@ TEST_CASE("Softmax") {
                                       {3}};
     
     SUBCASE("Forward pass") {
-        auto A = ann::activations::Softmax<double, size>::forward(Z);
+        auto A = ann::activations::Softmax::forward(Z);
 
         CHECK(doctest::Approx(0.0900305732) == A(0, 0));
         CHECK(doctest::Approx(0.2447284711) == A(1, 0));
@@ -54,7 +55,7 @@ TEST_CASE("Softmax") {
     }
 
     SUBCASE("Jacobain matrix") {
-        auto J = ann::activations::Softmax<double, size>::jacobian(Z);
+        auto J = ann::activations::Softmax::jacobian(Z);
 
         // 1st row
         CHECK(doctest::Approx(0.08192506908927944176)  == J(0, 0));
