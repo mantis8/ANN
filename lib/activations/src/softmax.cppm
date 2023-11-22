@@ -11,14 +11,13 @@ import Matrix;
 
 export namespace ann::activations {
 
-template<typename T, size_t Size>
-requires std::is_floating_point_v<T>
-
 class Softmax {
   public:
-    static linalg::Matrix<T, Size, 1> forward(const linalg::Matrix<T, Size, 1>& Z) {
+    template<typename T, size_t Size>
+    requires std::is_floating_point_v<T>
+    static constexpr linalg::Matrix<T, Size, 1> forward(const linalg::Matrix<T, Size, 1>& Z) {
         linalg::Matrix<T, Size, 1> A{};
-        std::transform(Z.cbegin(), Z.cend(), A.begin(), exp);
+        std::transform(Z.cbegin(), Z.cend(), A.begin(), exp<T>);
 
         const T sum = std::reduce(A.cbegin(), A.cend());
         std::for_each(A.begin(), A.end(), [sum](T& z){
@@ -28,7 +27,9 @@ class Softmax {
         return A;
     };
     
-    static linalg::Matrix<T, Size, Size> jacobian(const linalg::Matrix<T, Size, 1>& Z) {
+    template<typename T, size_t Size>
+    requires std::is_floating_point_v<T>
+    static constexpr linalg::Matrix<T, Size, Size> jacobian(const linalg::Matrix<T, Size, 1>& Z) {
         auto A = forward(Z);
         
         linalg::Matrix<T, Size, Size> J{};
@@ -47,7 +48,8 @@ class Softmax {
     };
     
   private:
-    static T exp(const T& z) {
+    template<typename T>
+    static constexpr T exp(const T& z) {
         return std::exp(z);
     };
 };
