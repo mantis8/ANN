@@ -1,2 +1,2 @@
 # ANN
-A simple artificial neural network implementaion.
+A simple artificial neural network implementation.
