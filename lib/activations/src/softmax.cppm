@@ -15,7 +15,7 @@ class Softmax {
   public:
     template<typename T, size_t Size>
     requires std::is_floating_point_v<T>
-    static constexpr linalg::Matrix<T, Size, 1> forward(const linalg::Matrix<T, Size, 1>& Z) {
+    static constexpr linalg::Matrix<T, Size, 1> map(const linalg::Matrix<T, Size, 1>& Z) {
         linalg::Matrix<T, Size, 1> A{};
         std::transform(Z.cbegin(), Z.cend(), A.begin(), exp<T>);
 
@@ -30,7 +30,8 @@ class Softmax {
     template<typename T, size_t Size>
     requires std::is_floating_point_v<T>
     static constexpr linalg::Matrix<T, Size, Size> jacobian(const linalg::Matrix<T, Size, 1>& Z) {
-        auto A = forward(Z);
+        // TODO maybe refactro to avoid second call to map
+        auto A = map(Z);
         
         linalg::Matrix<T, Size, Size> J{};
         for (size_t i = 0; i < Size; i++) {
