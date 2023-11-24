@@ -14,7 +14,7 @@ TEST_CASE("Relu") {
                                       {42.42}};
 
     SUBCASE("Forward pass") {
-        auto A = ann::activations::Relu::forward(Z);
+        auto A = ann::activations::Relu::map(Z);
 
         CHECK(doctest::Approx(0)     == A(0, 0));
         CHECK(doctest::Approx(0)     == A(1, 0));
@@ -44,7 +44,7 @@ TEST_CASE("Softmax") {
                                       {3}};
     
     SUBCASE("Forward pass") {
-        auto A = ann::activations::Softmax::forward(Z);
+        auto A = ann::activations::Softmax::map(Z);
 
         CHECK(doctest::Approx(0.0900305732) == A(0, 0));
         CHECK(doctest::Approx(0.2447284711) == A(1, 0));
