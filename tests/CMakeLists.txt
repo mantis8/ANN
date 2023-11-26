@@ -5,9 +5,14 @@ add_executable(${PROJECT_NAME}_ActivationsTest src/activations_test.cpp)
 target_link_libraries(${PROJECT_NAME}_ActivationsTest PRIVATE ${PROJECT_NAME}_Activations
                                                               ${PROJECT_NAME}_Doctest)
 
+add_executable(${PROJECT_NAME}_CostFunctionsTest src/cost_functions_test.cpp)
+target_link_libraries(${PROJECT_NAME}_CostFunctionsTest PRIVATE ${PROJECT_NAME}_CostFunctions
+                                                                ${PROJECT_NAME}_Doctest)
+
 add_executable(${PROJECT_NAME}_LayersTest src/layers_test.cpp)
 target_link_libraries(${PROJECT_NAME}_LayersTest PRIVATE ${PROJECT_NAME}_Layers
                                                          ${PROJECT_NAME}_Doctest)
 
-add_test(${PROJECT_NAME}_Tests ${PROJECT_NAME}_ActivationsTest)
-add_test(${PROJECT_NAME}_Tests ${PROJECT_NAME}_LayersTest)
+add_test(${PROJECT_NAME}_ActivationsTest ${PROJECT_NAME}_ActivationsTest)
+add_test(${PROJECT_NAME}_CostFunctionsTest ${PROJECT_NAME}_CostFunctionsTest)
+add_test(${PROJECT_NAME}_LayersTest ${PROJECT_NAME}_LayersTest)
