@@ -4,22 +4,18 @@ module;
 
 export module Layers:Dense;
 
+
+
 import Matrix;
 import Tensor;
 
+import Activations;
 import :Interface;
-
-template<typename T, size_t Size, typename Activation>
-concept is_activation = requires(Activation a) {
-    {a.template map(linalg::Matrix<T, Size, 1>{})};
-    {a.template jacobian(linalg::Matrix<T, Size, 1>{})};
-};
-
 
 export namespace ann::layers {
 
 template<typename T, size_t Inputs, size_t Outputs, typename Activation>
-requires is_activation<T, Outputs, Activation>
+requires activations::is_activation<T, Outputs, Activation>
 class Dense: public ILayer<T, Inputs, Outputs> {
     linalg::Matrix<T, Outputs, 1> predict(const linalg::Matrix<T, Inputs, 1>& X) override {
         return Activation::map(W_ * X + B_);
