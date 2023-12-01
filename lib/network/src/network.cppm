@@ -1,11 +1,11 @@
 module;
 
+import Layers;
+
 #include <cstddef>
 #include <tuple>
 
 export module Network;
-
-import Layers;
 
 export namespace ann::network {
 
@@ -14,9 +14,10 @@ class Network {
   public:
     Network();
  
+ /*
     template<size_t I = 0>
     constexpr void predict() {
-        if constexpr(I ==std::tuple_size<std::tuple<T...>>{}) {
+        if constexpr(I ==std::tuple_size<std::tuple<Layers...>>{}) {
             return;
         }
 
@@ -24,10 +25,10 @@ class Network {
             std::get<I>(layers_);
             predict<I+1>();
         } 
-    }
+    };*/
 
   private:
     std::tuple<Layers...> layers_;
-}
+};
 
 } // ann::network

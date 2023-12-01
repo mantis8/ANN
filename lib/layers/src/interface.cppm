@@ -2,10 +2,10 @@ module;
 
 #include <cstddef>
 
-export module Layers:Interface;
-
 import Matrix;
 import Tensor;
+
+export module Layers:Interface;
 
 export namespace ann::layers {
 template<typename T, size_t Inputs, size_t Outputs>

@@ -1,10 +1,10 @@
 module;
 
+import Matrix;
+
 #include <cstddef>
 
 export module Activations:Concepts;
-
-import Matrix;
 
 export namespace ann::activations {
 

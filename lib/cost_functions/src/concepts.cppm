@@ -1,10 +1,10 @@
 module;
 
+import Matrix;
+
 #include <cstddef>
 
 export module CostFunctions:Concepts;
-
-import Matrix;
 
 export namespace ann::cost_functions {
 

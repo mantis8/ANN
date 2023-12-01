@@ -2,14 +2,13 @@ module;
 
 #include <cstddef>
 
-export module Layers:Dense;
-
-
-
 import Matrix;
 import Tensor;
 
 import Activations;
+
+export module Layers:Dense;
+
 import :Interface;
 
 export namespace ann::layers {

@@ -4,7 +4,6 @@ import Matrix;
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
-
 TEST_CASE("Mse") {
     linalg::Matrix<float, 3, 1> Y{{1},
                                   {2},

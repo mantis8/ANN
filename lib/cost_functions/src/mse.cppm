@@ -1,12 +1,12 @@
 module;
 
+import Matrix;
+
 #include <cmath>
 #include <numeric>
 #include <type_traits>
 
 export module CostFunctions:Mse;
-
-import Matrix;
 
 export namespace ann::cost_functions {
 
