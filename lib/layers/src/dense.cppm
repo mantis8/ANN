@@ -9,22 +9,20 @@ import Activations;
 
 export module Layers:Dense;
 
-import :Interface;
-
 export namespace ann::layers {
 
 template<typename T, size_t Inputs, size_t Outputs, typename Activation>
 requires activations::is_activation<T, Outputs, Activation>
-class Dense: public ILayer<T, Inputs, Outputs> {
+class Dense {
   public:
     Dense() = default;
     Dense(const linalg::Matrix<T, Outputs, Inputs>& W, const linalg::Matrix<T, Outputs, 1>& B) : W_{W}, B_{B} {};
 
-    linalg::Matrix<T, Outputs, 1> feed(const linalg::Matrix<T, Inputs, 1>& X) override {
+    linalg::Matrix<T, Outputs, 1> feed(const linalg::Matrix<T, Inputs, 1>& X) {
         return Activation::map(W_ * X + B_);
     };
 
-    linalg::Tensor<T, Outputs, 1> train(const linalg::Tensor<T, Inputs, 1>& X) override {
+    linalg::Tensor<T, Outputs, 1> train(const linalg::Tensor<T, Inputs, 1>& X) {
         // TODO check design
         //auto Z = W_ * X + B_;
         //auto A = Activation::map(Z);
