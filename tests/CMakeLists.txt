@@ -10,9 +10,15 @@ target_link_libraries(${PROJECT_NAME}_CostFunctionsTest PRIVATE ${PROJECT_NAME}_
                                                                 ${PROJECT_NAME}_Doctest)
 
 add_executable(${PROJECT_NAME}_LayersTest src/layers_test.cpp)
-target_link_libraries(${PROJECT_NAME}_LayersTest PRIVATE ${PROJECT_NAME}_Layers
-                                                         ${PROJECT_NAME}_Doctest)
+target_link_libraries(${PROJECT_NAME}_LayersTest PRIVATE ${PROJECT_NAME}_Doctest
+                                                         ${PROJECT_NAME}_Layers)
 
-add_test(${PROJECT_NAME}_ActivationsTest ${PROJECT_NAME}_ActivationsTest)
-add_test(${PROJECT_NAME}_CostFunctionsTest ${PROJECT_NAME}_CostFunctionsTest)
-add_test(${PROJECT_NAME}_LayersTest ${PROJECT_NAME}_LayersTest)
+add_executable(${PROJECT_NAME}_NetworkTest src/network_test.cpp)
+target_link_libraries(${PROJECT_NAME}_NetworkTest PRIVATE ${PROJECT_NAME}_Doctest
+                                                          ${PROJECT_NAME}_Layers
+                                                          ${PROJECT_NAME}_Network)
+
+add_test(ActivationsTest ${PROJECT_NAME}_ActivationsTest)
+add_test(CostFunctionsTest ${PROJECT_NAME}_CostFunctionsTest)
+add_test(LayersTest ${PROJECT_NAME}_LayersTest)
+add_test(NetworkTest ${PROJECT_NAME}_NetworkTest)
