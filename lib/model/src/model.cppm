@@ -18,7 +18,7 @@ class Model {
     decltype(auto) predict(auto X) {
         if constexpr (sizeof...(Layers) > I) {
             // call each layer consecutively
-            auto Y = std::get<I>(layers_).predict(X);
+            auto Y = std::get<I>(layers_).feed(X);
             return predict<I + 1>(Y);
         } else {
             return X;
