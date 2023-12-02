@@ -7,28 +7,26 @@ import Layers;
 
 export module Network;
 
-export namespace ann::network {
+export namespace ann {
 
-template<size_t T, typename... Layers>
+template<typename... Layers>
 class Network {
   public:
-    Network();
- 
- /*
-    template<size_t I = 0>
-    constexpr void predict() {
-        if constexpr(I ==std::tuple_size<std::tuple<Layers...>>{}) {
-            return;
-        }
+    Network(Layers&&... layers) : layers_{layers...} {};
 
-        else {
-            std::get<I>(layers_);
-            predict<I+1>();
-        } 
-    };*/
+    template<size_t I = 0>
+    decltype(auto) predict(auto X) {
+        if constexpr (sizeof...(Layers) > I) {
+            // call each layer consecutively
+            auto Y = std::get<I>(layers_).predict(X);
+            return predict<I + 1>(Y);
+        } else {
+            return X;
+        }
+    }
 
   private:
     std::tuple<Layers...> layers_;
 };
 
-} // ann::network
+} // ann
