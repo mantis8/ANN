@@ -16,6 +16,7 @@ export namespace ann::layers {
 template<typename T, size_t Inputs, size_t Outputs, typename Activation>
 requires activations::is_activation<T, Outputs, Activation>
 class Dense: public ILayer<T, Inputs, Outputs> {
+  public:
     linalg::Matrix<T, Outputs, 1> predict(const linalg::Matrix<T, Inputs, 1>& X) override {
         return Activation::map(W_ * X + B_);
     };
@@ -25,8 +26,9 @@ class Dense: public ILayer<T, Inputs, Outputs> {
         //auto Z = W_ * X + B_;
         //auto A = Activation::map(Z);
         //auto J = Activation::jacobian(Z);
+        linalg::Tensor<T, Outputs, 1> Y{};
 
-        return X;
+        return Y;
     };
 
     // TODO maybe use ducktyping instead of inheritance
