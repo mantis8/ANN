@@ -17,6 +17,9 @@ template<typename T, size_t Inputs, size_t Outputs, typename Activation>
 requires activations::is_activation<T, Outputs, Activation>
 class Dense: public ILayer<T, Inputs, Outputs> {
   public:
+    Dense() = default;
+    Dense(const linalg::Matrix<T, Outputs, Inputs>& W, const linalg::Matrix<T, Outputs, 1>& B) : W_{W}, B_{B} {};
+
     linalg::Matrix<T, Outputs, 1> feed(const linalg::Matrix<T, Inputs, 1>& X) override {
         return Activation::map(W_ * X + B_);
     };
