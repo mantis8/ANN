@@ -5,14 +5,14 @@ import Layers;
 #include <cstddef>
 #include <tuple>
 
-export module Network;
+export module Model;
 
 export namespace ann {
 
 template<typename... Layers>
-class Network {
+class Model {
   public:
-    Network(Layers&&... layers) : layers_{layers...} {};
+    Model(Layers&&... layers) : layers_{layers...} {};
 
     template<size_t I = 0>
     decltype(auto) predict(auto X) {

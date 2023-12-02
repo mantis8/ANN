@@ -17,7 +17,7 @@ enable_testing()
 add_subdirectory(lib/activations)
 add_subdirectory(lib/cost_functions)
 add_subdirectory(lib/layers)
-add_subdirectory(lib/network)
+add_subdirectory(lib/model)
 
 add_subdirectory(tests)
 

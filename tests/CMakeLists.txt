@@ -13,12 +13,12 @@ add_executable(${PROJECT_NAME}_LayersTest src/layers_test.cpp)
 target_link_libraries(${PROJECT_NAME}_LayersTest PRIVATE ${PROJECT_NAME}_Doctest
                                                          ${PROJECT_NAME}_Layers)
 
-add_executable(${PROJECT_NAME}_NetworkTest src/network_test.cpp)
-target_link_libraries(${PROJECT_NAME}_NetworkTest PRIVATE ${PROJECT_NAME}_Doctest
+add_executable(${PROJECT_NAME}_ModelTest src/model_test.cpp)
+target_link_libraries(${PROJECT_NAME}_ModelTest PRIVATE ${PROJECT_NAME}_Doctest
                                                           ${PROJECT_NAME}_Layers
-                                                          ${PROJECT_NAME}_Network)
+                                                          ${PROJECT_NAME}_Model)
 
 add_test(ActivationsTest ${PROJECT_NAME}_ActivationsTest)
 add_test(CostFunctionsTest ${PROJECT_NAME}_CostFunctionsTest)
 add_test(LayersTest ${PROJECT_NAME}_LayersTest)
-add_test(NetworkTest ${PROJECT_NAME}_NetworkTest)
+add_test(ModelTest ${PROJECT_NAME}_ModelTest)
