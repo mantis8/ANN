@@ -7,4 +7,5 @@ target_sources(${PROJECT_NAME}_Layers
         src/layers.cppm
 )
 target_link_libraries(${PROJECT_NAME}_Layers PUBLIC ${PROJECT_NAME}_Activations
+                                                    ${PROJECT_NAME}_Initializers
                                                     LinAlg_Tensor)
