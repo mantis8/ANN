@@ -6,16 +6,22 @@ import Matrix;
 import Tensor;
 
 import Activations;
+import Initializers;
 
 export module Layers:Dense;
 
 export namespace ann::layers {
 
-template<typename T, size_t Inputs, size_t Outputs, typename Activation>
-requires activations::is_activation<T, Outputs, Activation>
+// TODO implement default initializer to none and change tests to use this one
+// TODO update concepts similar to initializer concepts
+template<typename T, size_t Inputs, size_t Outputs, typename Activation, typename Initializer>
+requires activations::is_activation<T, Outputs, Activation> &&
+         initializers::is_initializer<T, Inputs, Outputs, Initializer>
 class Dense {
   public:
-    Dense() = default;
+    Dense() : W_{} {
+        Initializer::initialize(W_);
+    };
     Dense(const linalg::Matrix<T, Outputs, Inputs>& W, const linalg::Matrix<T, Outputs, 1>& B) : W_{W}, B_{B} {};
 
     linalg::Matrix<T, Outputs, 1> feed(const linalg::Matrix<T, Inputs, 1>& X) {

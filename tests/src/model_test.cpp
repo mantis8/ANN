@@ -1,4 +1,5 @@
 import Activations;
+import Initializers;
 import Layers;
 import Matrix;
 import Model;
@@ -21,8 +22,8 @@ TEST_CASE("Model") {
     linalg::Matrix<float, 2, 1> B2{{-0.1},
                                    { 0.1}};
 
-    auto model = ann::Model{ann::layers::Dense<float, 2, 3, ann::activations::Relu>{W1, B1},
-                            ann::layers::Dense<float, 3, 2, ann::activations::Softmax>{W2, B2}};
+    auto model = ann::Model{ann::layers::Dense<float, 2, 3, ann::activations::Relu, ann::initializers::Glorot>{W1, B1},
+                            ann::layers::Dense<float, 3, 2, ann::activations::Softmax, ann::initializers::Glorot>{W2, B2}};
 
     linalg::Matrix<float, 2, 1> X{{1.1},
                                   {2.2}};

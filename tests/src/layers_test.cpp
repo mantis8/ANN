@@ -1,4 +1,5 @@
 import Activations;
+import Initializers;
 import Layers;
 import Matrix;
 
@@ -15,7 +16,7 @@ TEST_CASE("Dense") {
                                       { 20},
                                       { 2}};
 
-        ann::layers::Dense<float, 3, 3, ann::activations::Softmax> dense{W, B};
+        ann::layers::Dense<float, 3, 3, ann::activations::Softmax, ann::initializers::Glorot> dense{W, B};
         
         linalg::Matrix<float, 3, 1> X{{0.5},
                                       {7.2},
