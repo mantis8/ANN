@@ -2,17 +2,16 @@ module;
 
 import Matrix;
 
+#include <concepts>
 #include <cstddef>
 
 export module Initializers:Concepts;
 
 export namespace ann::initializers {
 
-template<typename T, size_t Size, typename Initializer>
-concept is_initializer = requires(Initializer i) {
-    // TODO implement
-    {i.template map(linalg::Matrix<T, Size, 1>{})};
-    {i.template jacobian(linalg::Matrix<T, Size, 1>{})};
+template<typename T, size_t Inputs, size_t Outputs, typename Initializer>
+concept is_initializer = requires(Initializer i, linalg::Matrix<T, Outputs, Inputs> W) {
+    {i.template initialize(W)} -> std::same_as<void>;
 };
 
 } // ann::initializer
