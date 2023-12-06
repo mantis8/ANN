@@ -12,28 +12,28 @@ export namespace ann::cost_functions {
 
 class Mse {
   public:
-    template<typename T, size_t Size>
-    requires std::is_floating_point_v<T> && (Size > 0)
-    static T map(const linalg::Matrix<T, Size, 1> Y, const linalg::Matrix<T, Size, 1>& Y_hat) {
-        linalg::Matrix<T, Size, 1> L{};
+    template<typename T, size_t Inputs>
+    requires std::is_floating_point_v<T> && (Inputs > 0)
+    static T map(const linalg::Matrix<T, Inputs, 1> Y, const linalg::Matrix<T, Inputs, 1>& Y_hat) {
+        linalg::Matrix<T, Inputs, 1> L{};
 
         // TODO use zip_transform
-        for (size_t i = 0; i < Size; i++) {
+        for (size_t i = 0; i < Inputs; i++) {
             L(i, 0) = mse(Y(i, 0), Y_hat(i, 0));
         }
 
-        return std::reduce(L.cbegin(), L.cend()) / Size;
+        return std::reduce(L.cbegin(), L.cend()) / Inputs;
     };
     
-    template<typename T, size_t Size>
-    requires std::is_floating_point_v<T>
-    static linalg::Matrix<T, 1, Size> jacobian(const linalg::Matrix<T, Size, 1> Y, const linalg::Matrix<T, Size, 1>& Y_hat) {
+    template<typename T, size_t Inputs>
+    requires std::is_floating_point_v<T> && (Inputs > 0)
+    static linalg::Matrix<T, 1, Inputs> jacobian(const linalg::Matrix<T, Inputs, 1> Y, const linalg::Matrix<T, Inputs, 1>& Y_hat) {
         // TODO use diagonal matrix
-        linalg::Matrix<T, 1, Size> J{};
+        linalg::Matrix<T, 1, Inputs> J{};
         
         // TODO use zip_transform
-        for (size_t i = 0; i < Size; i++) {
-            J(0, i) = mseDerivative(Y(0, i), Y_hat(0, i)) / Size;
+        for (size_t i = 0; i < Inputs; i++) {
+            J(0, i) = mseDerivative(Y(0, i), Y_hat(0, i)) / Inputs;
         }
 
         return J;
