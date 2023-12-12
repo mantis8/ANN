@@ -12,8 +12,9 @@ export module Layers:Dense;
 
 export namespace ann::layers {
 
-// TODO implement default initializer to none and change tests to use this one
-template<typename T, size_t Inputs, size_t Outputs, typename Activation, typename Initializer>
+template<typename T, size_t Inputs, size_t Outputs,
+         typename Activation,
+         typename Initializer = ann::initializers::Glorot>
 requires activations::is_activation<T, Outputs, Activation> &&
          initializers::is_initializer<T, Inputs, Outputs, Initializer>
 class Dense {
@@ -37,7 +38,6 @@ class Dense {
         return Y;
     };
 
-    // TODO maybe use ducktyping instead of inheritance
     void update(const T lr, const linalg::Matrix<T, Outputs, Inputs>& dW, const linalg::Matrix<T, Outputs, 1>& dB) {
         W_ = W_ - lr * dW;
         B_ = B_ - lr * dB;
