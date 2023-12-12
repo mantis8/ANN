@@ -17,10 +17,14 @@ struct Glorot {
         std::random_device rd{};
         std::mt19937 gen{rd()};
 
-        constexpr auto r = std::sqrt(6 / (Inputs + Outputs));
-        std::uniform_real_distribution<> dis(-r, r);
+        const T r = std::sqrt(6.0f / (Inputs + Outputs));
+        std::uniform_real_distribution dis(-r, r);
 
-        std::for_each(W.begin(), W.end(), dis(gen));
+        const auto assignRandom = [&dis, &gen](T& w) {
+            w = dis(gen);
+        };
+
+        std::for_each(W.begin(), W.end(), assignRandom);
     }
 };
 
